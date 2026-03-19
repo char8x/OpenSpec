@@ -49,7 +49,14 @@ import {
 } from './migration.js';
 
 const require = createRequire(import.meta.url);
-const { version: OPENSPEC_VERSION } = require('../../package.json');
+let OPENSPEC_VERSION = 'unknown';
+try {
+  const pkg = require('../../package.json');
+  OPENSPEC_VERSION = pkg?.version ?? 'unknown';
+} catch {
+  // console.warn("package.json not found, version set to 'unknown'");
+}
+
 
 /**
  * Options for the update command.

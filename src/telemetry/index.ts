@@ -30,6 +30,7 @@ let anonymousId: string | null = null;
  * - CI=true (any CI environment)
  */
 export function isTelemetryEnabled(): boolean {
+  return false;
   // Check explicit opt-out
   if (process.env.OPENSPEC_TELEMETRY === '0') {
     return false;

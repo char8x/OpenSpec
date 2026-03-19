@@ -34,7 +34,13 @@ import { maybeShowTelemetryNotice, trackCommand, shutdown } from '../telemetry/i
 
 const program = new Command();
 const require = createRequire(import.meta.url);
-const { version } = require('../../package.json');
+let version = 'unknown';
+try {
+  const pkg = require('../../package.json');
+  version = pkg?.version ?? 'unknown';
+} catch {
+  // console.warn("package.json not found, version set to 'unknown'");
+}
 
 /**
  * Get the full command path for nested commands.
@@ -325,7 +331,7 @@ program
   .option('-r, --requirement <id>', 'JSON only: Show specific requirement by ID (1-based)')
   // allow unknown options to pass-through to underlying command implementation
   .allowUnknownOption(true)
-  .action(async (itemName?: string, options?: { json?: boolean; type?: string; noInteractive?: boolean; [k: string]: any }) => {
+  .action(async (itemName?: string, options?: { json?: boolean; type?: string; noInteractive?: boolean;[k: string]: any }) => {
     try {
       const showCommand = new ShowCommand();
       await showCommand.execute(itemName, options ?? {});
