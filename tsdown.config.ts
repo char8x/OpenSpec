@@ -17,7 +17,5 @@ export default defineConfig({
   },
   exe: {
     fileName: 'openspec',
-    useSnapshot: true,
-    useCodeCache: true,
   }
 })
